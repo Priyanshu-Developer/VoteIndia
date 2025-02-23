@@ -14,5 +14,5 @@ module.exports = {
       dbPath: "./hardhat-db",
     }
   },
-  solidity: "0.8.24",
+  solidity: "0.8.28",
 }
