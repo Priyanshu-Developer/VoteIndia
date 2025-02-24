@@ -12,19 +12,23 @@ interface IParties {
     function getParty(uint partyId) external view returns (string memory name,string memory symbol,uint256 registeredTime);
 }
 
-contract StateVote {
+contract Vote {
     address public owner;
     uint public year;
+    string voteType;
     ISwarajToken public swarajToken;
     IParties public partiesContract;  
 
     struct Candidate {
         string name;
+        string image;
         uint partieid; 
         uint votecount;
+
     }
-    struct returnCantidate{
+    struct ReturnCantidate{
         string name;
+        string image;
         uint partieid; 
         uint votecount;
         string symbol;
@@ -38,10 +42,11 @@ contract StateVote {
         _;
     }
 
-    constructor(address _tokenAddress, address _partiesAddress) {
+    constructor(address _tokenAddress, address _partiesAddress,string memory votetype) {
         swarajToken = ISwarajToken(_tokenAddress);
         partiesContract = IParties(_partiesAddress);
         year = block.timestamp;
+        voteType = votetype;
         owner = msg.sender;
     }
 
@@ -53,28 +58,25 @@ contract StateVote {
         revert("No Ether Allowed");
     }
 
-    function yearOfVoting() public view returns (uint) {
-        return year;
-    }
-
-    function addCandidates(string memory name,uint id,uint partieid,string memory state) public onlyOwner {
+    function addCandidates(string memory name,uint id,uint partieid,string memory state,string memory image) public onlyOwner {
 
         require(bytes(candidate[id].name).length == 0, "Candidate Aleready exist");
         require(address(partiesContract) != address(0), "Parties contract is not set");
         // Verify that the party exists in the Parties contract
         (string memory partyName, , ) = partiesContract.getParty(partieid);
         require(bytes(partyName).length > 0, "Party does not exist");
+        require(bytes(image).length > 0,"Image Should be provided");
 
         require(bytes(name).length > 0, "Candidate name is required");
         require(bytes(state).length > 0, "State name is required");
 
 
-        candidate[id] = Candidate(name, partieid, 0);
+        candidate[id] = Candidate(name, image,partieid, 0);
         stateCandidates[state].push(id);
         emit CandidateAdded( name, partieid, 0);
     }
 
-    function getCandidatesByState(string memory state) public view returns (returnCantidate[] memory) {
+    function getCandidatesByState(string memory state) public view returns (ReturnCantidate[] memory) {
 
         
         require(bytes(state).length > 0, "State name is required");
@@ -82,7 +84,7 @@ contract StateVote {
         uint[] memory candidateIds = stateCandidates[state];
         uint length = candidateIds.length;
 
-        returnCantidate[] memory candidatesList = new returnCantidate[](length);
+        ReturnCantidate[] memory candidatesList = new ReturnCantidate[](length);
 
         for (uint i = 0; i < length; i++) {
             uint candidateId = candidateIds[i];
@@ -91,8 +93,9 @@ contract StateVote {
             // Fetch party symbol from the Parties contract
             (, string memory symbol,  ) = partiesContract.getParty(c.partieid);
 
-            candidatesList[i] = returnCantidate({
+            candidatesList[i] = ReturnCantidate({
                 name: c.name,
+                image:c.image,
                 partieid: c.partieid,
                 votecount: c.votecount,
                 symbol: symbol
