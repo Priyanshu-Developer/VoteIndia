@@ -58,6 +58,8 @@ contract StateVote {
     }
 
     function addCandidates(string memory name,uint id,uint partieid,string memory state) public onlyOwner {
+
+        require(bytes(candidate[id].name).length == 0, "Candidate Aleready exist");
         require(address(partiesContract) != address(0), "Parties contract is not set");
         // Verify that the party exists in the Parties contract
         (string memory partyName, , ) = partiesContract.getParty(partieid);
@@ -73,6 +75,8 @@ contract StateVote {
     }
 
     function getCandidatesByState(string memory state) public view returns (returnCantidate[] memory) {
+
+        
         require(bytes(state).length > 0, "State name is required");
 
         uint[] memory candidateIds = stateCandidates[state];

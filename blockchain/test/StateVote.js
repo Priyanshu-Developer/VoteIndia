@@ -121,4 +121,41 @@ describe("StateVote Contract", function () {
                 .to.be.revertedWith("Candidate does not exist");
         });
     });
+
+    describe('Actual Voting ', () => {
+      it("Working of actual Voting System ",async () => {
+        await swarajToken.mint(owner.address, ethers.parseUnits("1000", 18));
+        expect(await swarajToken.balanceOf(owner.address)).to.equal(ethers.parseUnits("1000", 18));
+
+        await swarajToken.connect(owner).depositGasFunds({ value: ethers.parseEther("0.010") });
+
+        await swarajToken.batchTransfer([addr1.address, addr2.address, addr3.address,addr4.address]);
+
+        const voteAmount = ethers.parseUnits("1", 18);
+
+        await swarajToken.connect(addr1).approve(stateVote.target, voteAmount);
+        await swarajToken.connect(addr2).approve(stateVote.target, voteAmount);
+        await swarajToken.connect(addr3).approve(stateVote.target, voteAmount);
+        await swarajToken.connect(addr4).approve(stateVote.target, voteAmount);
+
+        await parties.addParty(2, "Democratic Republic", "DR");
+
+        await stateVote.addCandidates("John Doe", 1, 1, "Maharashtra");
+        await stateVote.addCandidates("John baba", 2, 2, "Maharashtra");
+
+
+
+        await expect(stateVote.connect(addr1).voteForCandidate(1)).to.emit(stateVote, "VoteCasted").withArgs(addr1.address, 1, 1);
+        await expect(stateVote.connect(addr2).voteForCandidate(1)).to.emit(stateVote, "VoteCasted").withArgs(addr2.address, 1, 2);
+        await expect(stateVote.connect(addr3).voteForCandidate(2)).to.emit(stateVote, "VoteCasted").withArgs(addr3.address, 2, 1);
+        await expect(stateVote.connect(addr4).voteForCandidate(1)).to.emit(stateVote, "VoteCasted").withArgs(addr4.address, 1, 3);
+        
+
+
+
+
+
+      })
+    })
+    
 });
