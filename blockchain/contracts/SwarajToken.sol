@@ -43,6 +43,10 @@ contract SwarajToken {
         emit Transfer(msg.sender, to, amount);
         return true;
     }
+    
+    function allowance(address user, address spender) public view returns (uint256) {
+        return allowances[user][spender];
+    }
 
     function approve(address spender, uint256 amount) public returns (bool) {
         require(spender != address(0), "Invalid address");

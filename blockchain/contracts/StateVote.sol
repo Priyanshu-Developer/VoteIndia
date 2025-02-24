@@ -5,15 +5,11 @@ interface ISwarajToken {
     function balanceOf(address account) external view returns (uint256);
     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
     function decimals() external view returns (uint8);
+    function allowance(address user, address spender) external view returns (uint256);
 }
 
 interface IParties {
-    function getParty(uint partyId) external view returns (
-        string memory name,
-        string memory symbol,
-        uint256 registeredTime,
-        address walletAddress
-    );
+    function getParty(uint partyId) external view returns (string memory name,string memory symbol,uint256 registeredTime);
 }
 
 contract StateVote {
@@ -25,12 +21,12 @@ contract StateVote {
     struct Candidate {
         string name;
         uint partieid; 
-        address walletAddress;
+        uint votecount;
     }
     struct returnCantidate{
         string name;
         uint partieid; 
-        address walletAddress;
+        uint votecount;
         string symbol;
     }
 
@@ -61,18 +57,19 @@ contract StateVote {
         return year;
     }
 
-    function addCandidates(string memory name,address walletAddress,uint id,uint partieid,string memory state) public onlyOwner {
+    function addCandidates(string memory name,uint id,uint partieid,string memory state) public onlyOwner {
+        require(address(partiesContract) != address(0), "Parties contract is not set");
         // Verify that the party exists in the Parties contract
-        (string memory partyName, , , ) = partiesContract.getParty(partieid);
+        (string memory partyName, , ) = partiesContract.getParty(partieid);
         require(bytes(partyName).length > 0, "Party does not exist");
 
         require(bytes(name).length > 0, "Candidate name is required");
-        require(walletAddress != address(0), "Invalid wallet address");
         require(bytes(state).length > 0, "State name is required");
 
 
-        candidate[id] = Candidate(name, partieid, walletAddress);
+        candidate[id] = Candidate(name, partieid, 0);
         stateCandidates[state].push(id);
+        emit CandidateAdded( name, partieid, 0);
     }
 
     function getCandidatesByState(string memory state) public view returns (returnCantidate[] memory) {
@@ -88,30 +85,44 @@ contract StateVote {
             Candidate storage c = candidate[candidateId];
 
             // Fetch party symbol from the Parties contract
-            (, string memory symbol, , ) = partiesContract.getParty(c.partieid);
+            (, string memory symbol,  ) = partiesContract.getParty(c.partieid);
 
             candidatesList[i] = returnCantidate({
                 name: c.name,
                 partieid: c.partieid,
-            walletAddress: c.walletAddress,
-            symbol: symbol
+                votecount: c.votecount,
+                symbol: symbol
         });
     }
 
     return candidatesList;
 }
 
-    function voteForCandidate(uint candidateId) public {
-        require(candidate[candidateId].walletAddress != address(0), "Invalid candidate");
-        address candidateWallet = candidate[candidateId].walletAddress;
-        uint256 voterBalance = swarajToken.balanceOf(msg.sender);
-        require(voterBalance > 0, "Not enough tokens");
-        uint256 voteAmount = 1 * (10 ** swarajToken.decimals());
-        require(voterBalance >= voteAmount, "Insufficient tokens");
-        bool success = swarajToken.transferFrom(msg.sender, candidateWallet, voteAmount);
-        require(success, "Token transfer failed");
-        emit VoteCasted(msg.sender, candidateId);
-    }
+   function voteForCandidate(uint candidateId) public {
+    // Ensure candidate exists
+    require(bytes(candidate[candidateId].name).length > 0, "Candidate does not exist");
 
-    event VoteCasted(address indexed voter, uint candidateId);
+    uint256 voteAmount = 1 * (10 ** swarajToken.decimals());
+
+    // Ensure the voter has enough tokens
+    uint256 voterBalance = swarajToken.balanceOf(msg.sender);
+    require(voterBalance >= voteAmount, "Insufficient tokens");
+
+    // Check if the voter has approved the required tokens
+    uint256 allowance = swarajToken.allowance(msg.sender, address(this));
+    require(allowance >= voteAmount, "Not enough allowance, approve more tokens");
+
+    // Transfer token from voter to contract
+    bool success = swarajToken.transferFrom(msg.sender, address(this), voteAmount);
+    require(success, "Token transfer failed");
+
+    // Increase the vote count for the candidate
+    candidate[candidateId].votecount++;
+
+    // Emit vote event
+    emit VoteCasted(msg.sender, candidateId, candidate[candidateId].votecount);
+}
+
+    event CandidateAdded(string  name,uint id, uint votecount);
+    event VoteCasted(address indexed voter, uint candidateId,uint votecount);
 }

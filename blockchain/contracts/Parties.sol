@@ -8,9 +8,9 @@ contract Parties {
         string name;
         string symbol;
         uint256 registeredTime;
-        address walletAddress;
+
     }
-    event PartyAdded(uint partyId, string name, string symbol, address walletAddress);
+    event PartyAdded(uint partyId, string name, string symbol);
 
     mapping(uint => Party) public parties;
     uint[] private partyIds; // To keep track of all party IDs
@@ -39,10 +39,9 @@ contract Parties {
      * @param partyId Unique identifier for the party.
      * @param partyName Name of the political party.
      * @param partySymbol Symbol representing the party.
-     * @param partyAddress Wallet address associated with the party.
+     
      */
-    function addParty(uint partyId,string memory partyName,string memory partySymbol,address partyAddress) public onlyOwner {
-        require(partyAddress != address(0), "Invalid wallet address");
+    function addParty(uint partyId,string memory partyName,string memory partySymbol) public onlyOwner {
         require(partyId != 0, "Invalid party ID");
         require(bytes(partyName).length > 0, "Party name required");
         require(bytes(partySymbol).length > 0, "Party symbol required");
@@ -52,26 +51,21 @@ contract Parties {
         parties[partyId] = Party({
             name: partyName,
             symbol: partySymbol,
-            registeredTime: block.timestamp,
-            walletAddress: partyAddress
+            registeredTime: block.timestamp
         });
 
         // Store party ID in an array for retrieval
         partyIds.push(partyId);
-        emit PartyAdded(partyId, partyName, partySymbol, partyAddress);
+        emit PartyAdded(partyId, partyName, partySymbol);
 
     }
 
-    /**
-     * @dev Fetch details of a party by its ID.
-     * @param partyId Unique identifier of the party.
-     * @return Party struct containing the party details.
-     */
-    function getParty(uint partyId) public view returns (string memory, string memory, uint256, address) {
+   
+    function getParty(uint partyId) public view returns (string memory name,string memory symbol,uint256 registeredTime){
         require(bytes(parties[partyId].name).length > 0, "Party does not exist");
 
         Party memory p = parties[partyId];
-        return (p.name, p.symbol, p.registeredTime, p.walletAddress);
+        return (p.name, p.symbol, p.registeredTime);
     }
 
     /**

@@ -7,10 +7,9 @@ describe("Parties Contract", function () {
     beforeEach(async function () {
         [owner, addr1, addr2] = await ethers.getSigners();
         Parties = await ethers.getContractFactory("Parties");
-        parties = await Parties.deploy(); // ❌ No need for .deployed()
+        parties = await Parties.deploy(); 
 
-        // Ensure contract is deployed
-        await parties.waitForDeployment(); // ✅ Use waitForDeployment() instead
+        await parties.waitForDeployment(); 
     });
 
     it("Should deploy with correct owner", async function () {
@@ -19,27 +18,26 @@ describe("Parties Contract", function () {
 
     it("Should allow only the owner to add a party", async function () {
         await expect(
-            parties.connect(addr1).addParty(1, "Liberty Party", "LP", addr1.address)
+            parties.connect(addr1).addParty(1, "Liberty Party", "LP")
         ).to.be.revertedWith("Not the owner");
 
         await expect(
-            parties.addParty(1, "Liberty Party", "LP", addr1.address)
+            parties.addParty(1, "Liberty Party", "LP")
         ).to.emit(parties, "PartyAdded");
     });
 
     it("Should store party details correctly", async function () {
-        await parties.addParty(1, "Justice League", "JL", addr1.address);
+        await parties.addParty(1, "Justice League", "JL");
         const party = await parties.getParty(1);
 
         expect(party[0]).to.equal("Justice League");
         expect(party[1]).to.equal("JL");
         expect(party[2]).to.be.a("bigint"); // Registered time
-        expect(party[3]).to.equal(addr1.address);
     });
 
     it("Should return all parties", async function () {
-        await parties.addParty(1, "Liberty Party", "LP", addr1.address);
-        await parties.addParty(2, "Justice League", "JL", addr2.address);
+        await parties.addParty(1, "Liberty Party", "LP");
+        await parties.addParty(2, "Justice League", "JL");
 
         const allParties = await parties.getAllParties();
         expect(allParties.length).to.equal(2);
@@ -60,22 +58,19 @@ describe("Parties Contract", function () {
     });
 
     it("Should not allow duplicate party IDs", async function () {
-        await parties.addParty(1, "Liberty Party", "LP", addr1.address);
-        await expect(parties.addParty(1, "Another Party", "AP", addr2.address)).to.be.reverted;
+        await parties.addParty(1, "Liberty Party", "LP");
+        await expect(parties.addParty(1, "Another Party", "AP")).to.be.reverted;
     });
 
     it("Should validate inputs when adding a party", async function () {
-        await expect(parties.addParty(0, "Liberty", "LP", addr1.address))
+        await expect(parties.addParty(0, "Liberty", "LP"))
             .to.be.revertedWith("Invalid party ID");
 
-        await expect(parties.addParty(1, "", "LP", addr1.address))
+        await expect(parties.addParty(1, "", "LP"))
             .to.be.revertedWith("Party name required");
 
-        await expect(parties.addParty(1, "Liberty", "", addr1.address))
+        await expect(parties.addParty(1, "Liberty", ""))
             .to.be.revertedWith("Party symbol required");
-
-        await expect(parties.addParty(1, "Liberty", "LP", ethers.ZeroAddress)) // ✅ Fix for Ethers v6
-            .to.be.revertedWith("Invalid wallet address");
     });
 
 });
