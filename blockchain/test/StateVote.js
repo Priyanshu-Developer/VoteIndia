@@ -15,7 +15,7 @@ describe("StateVote Contract", function () {
         parties = await Parties.deploy();
         await parties.waitForDeployment();
 
-        StateVote = await ethers.getContractFactory("Vote");
+        StateVote = await ethers.getContractFactory("StateVote");
         stateVote = await StateVote.deploy(swarajToken.getAddress(), parties.getAddress(), "Central");
         await stateVote.waitForDeployment();
 

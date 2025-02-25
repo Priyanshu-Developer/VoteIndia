@@ -12,7 +12,7 @@ interface IParties {
     function getParty(uint partyId) external view returns (string memory name,string memory symbol,uint256 registeredTime);
 }
 
-contract Vote {
+contract StateVote {
     address public owner;
     uint public year;
     string voteType;
@@ -77,10 +77,7 @@ contract Vote {
     }
 
     function getCandidatesByState(string memory state) public view returns (ReturnCantidate[] memory) {
-
-        
         require(bytes(state).length > 0, "State name is required");
-
         uint[] memory candidateIds = stateCandidates[state];
         uint length = candidateIds.length;
 
