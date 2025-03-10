@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div >
       <Sidebar />
       <div className="flex flex-col flex-1">
         <Navbar />

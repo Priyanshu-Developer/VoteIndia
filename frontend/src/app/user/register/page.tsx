@@ -142,7 +142,7 @@ export default function RegisterUser() {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-b from-[#FF9933] via-white to-[#138808] p-4">
+    <div className="relative flex items-center justify-center min-h-screen  p-4">
       <div className="relative z-10 bg-white p-6 md:p-8 rounded-lg shadow-lg w-full max-w-2xl text-center border-white border-2">
         <div>
           <div className="relative w-16 h-16 mx-auto">

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import Card from './Card';
 
 interface FaceDetectionProps {
   title: string;
@@ -13,10 +14,7 @@ export default function FaceDetectionLayout({ title, children, videoRef, faceSta
   const [isModelLoaded, setIsModelLoaded] = useState(false);
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-b from-[#FF9933] via-white to-[#138808] px-4 sm:px-6">
-      <div className="absolute inset-0 bg-stripes" />
-      <div className="relative z-10 bg-white bg-opacity-95 p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md text-center border-white border-2">
-        <div>
+    <Card>
           <div className="relative w-14 h-14 sm:w-16 sm:h-16 mx-auto">
             <Image src="/ashoka-chakra.png" alt="Ashoka Chakra" width={60} height={60} className="w-full h-full" />
           </div>
@@ -39,9 +37,7 @@ export default function FaceDetectionLayout({ title, children, videoRef, faceSta
           )}
 
           {children}
-        </div>
-      </div>
-      <footer className="absolute bottom-4 text-[#000080] text-xs sm:text-sm">Made with 🇮🇳 in India</footer>
-    </div>
+              </Card>
+        
   );
 }

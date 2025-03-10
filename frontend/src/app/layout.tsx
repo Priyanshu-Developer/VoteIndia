@@ -25,17 +25,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-         {children}
-      </body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen relative`}>
+      <div 
+        className="absolute inset-0 bg-[url('/images.jpeg')] bg-cover bg-center bg-no-repeat"
+      ></div>
+      <div 
+        className="absolute inset-0 bg-white/30 backdrop-blur-[4px]"
+      ></div>
+      <div className="relative z-10">
+        {children}
+      </div>
+    </body>
+
     </html>
   );
 }
-
-// actix-web = "4"
-// actix-identity = "0.5"
-// jsonwebtoken = "9"
-// serde = { version = "1", features = ["derive"] }
-// dotenvy = "0.15"
