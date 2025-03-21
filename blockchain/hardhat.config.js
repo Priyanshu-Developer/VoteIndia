@@ -4,8 +4,8 @@ module.exports = {
   defaultNetwork: "hardhat",
   networks: {
     geth: {
-      url: "http://127.0.0.1:8547",
-      accounts: ["dec0923d341c552dc9d36d02cac4aefaf997d62f857b5fe0b58b2dec0b0b27ff"]  // Replace with your actual private key
+      url: "http://127.0.0.1:8545",
+      accounts: ["c38894ca22f4c929682864be5ad5d7f3855c4349a368e3ca66de34d8da575f76"]  // Replace with your actual private key
     },
   },
   solidity: "0.8.28",

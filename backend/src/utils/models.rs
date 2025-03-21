@@ -10,7 +10,16 @@ pub struct User {
     pub image: String,
     pub face_descriptor: String,
     pub email: String,
-    pub is_admin: bool,
+    pub state:String,
+}
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Admin{
+    pub id: i64,
+    pub username: String,
+    pub password: String,
+    pub image: String,
+    pub email: String,
+    pub is_admin:bool
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -27,4 +36,5 @@ pub struct Adhar{
     pub id: i64,
     pub name: String,
     pub email: String,
+    pub state :String
 }

@@ -1,28 +1,20 @@
-use std::borrow::Cow;
-use std::str::FromStr;
+use web3::transports::Http;
+use web3::types::Address;
+use web3::Web3;
 
-use alloy::primitives::Address;
-use alloy::providers::{Provider, ProviderBuilder};
 
 use std::{env, io};
 pub async fn create_account() -> Result<String,io::Error>{
 
-    match env::var("GETH_URL") {
-        Ok(url) => {
-            let provider = ProviderBuilder::new().on_http(url.parse().unwrap());
-            match env::var("WALLET_PASSWORD") {
-                Ok(password) => {
-                    let address_str: String = provider.raw_request(Cow::from("personal_newAccount"), [password]).await.unwrap();
-        
-                    return Ok(Address::from_str(&address_str).unwrap().to_string());
-                    
-                }
-                Err(_) => Err(std::io::Error::new(
-                    std::io::ErrorKind::Other,
-                    "WALLET_PASSWORD environment variable not set" )),
-                
-            }
-        },
-        Err(_) => Err(io::Error::new(std::io::ErrorKind::Other,"WALLET_PASSWORD environment variable not set" ))
-    }
+    dotenv::dotenv().ok(); // Load environment variables from .env
+
+    let url = env::var("GETH_URL").unwrap();
+    let transport = Http::new(&url).unwrap();
+    let web3 = Web3::new(transport);
+
+    let password = env::var("WALLET_PASSWORD").unwrap();
+    
+    let address: Address = web3.personal().new_account(&password).await.unwrap();
+    
+    Ok(hex::encode(address.as_bytes()))
 }

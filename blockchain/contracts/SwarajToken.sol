@@ -92,13 +92,13 @@ contract SwarajToken {
         }
     }
 
-    function mint(address to, uint256 amount) external onlyOwner {
-        require(to == owner, "Minting allowed only to the contract owner");
+    function mint(uint256 amount) external onlyOwner {
         require(amount > 0, "Mint amount must be greater than zero");
 
-        balances[to] += amount;
+        balances[owner] += amount; // Always mint to the contract owner
         totalSupply += amount;
-        emit Minted(to, amount);
+
+        emit Minted(owner, amount);
     }
 
     function burnAllTokens() external onlyOwner {

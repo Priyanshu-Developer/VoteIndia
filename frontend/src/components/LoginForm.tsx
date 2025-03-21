@@ -41,7 +41,7 @@ export default function LoginPage(props: LoginPageProps) {
   return (
     <Card>
       <div className="relative w-14 h-14 sm:w-16 sm:h-16 mx-auto">
-        <Image src="/ashoka-chakra.png" alt="Ashoka Chakra" width={60} height={60} className="w-full h-full" />
+        <Image src="/electionLogo.png" alt="Ashoka Chakra" width={60} height={60} className="w-full h-full" />
       </div>
       <h1 className="text-lg sm:text-xl font-semibold text-[#000080] mb-4">{props.header}</h1>
       <form onSubmit={props.handlesubmit} className="space-y-4 text-left">

@@ -1,7 +1,7 @@
 const keythereum = require("keythereum");
 const fs = require("fs");
 
-const keystore = JSON.parse(fs.readFileSync("/home/anonymous/.ethereum/voters/keystore/UTC--2025-02-11T09-32-25.769124935Z--d6f19cbb898e55b24e775d41dcc30eaf98a55bda", "utf8"));
+const keystore = JSON.parse(fs.readFileSync("/home/anonymous/.etherum/test/keystore/UTC--2025-03-10T09-23-50.524867120Z--5232a11aced4d3e7e78685669486520683e88e4f", "utf8"));
 const password = "Priyanshu2002@"; // Replace with your actual password
 
 const privateKey = keythereum.recover(password, keystore);

@@ -1,9 +1,11 @@
 "use client"
 import { BellIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
+
 const Navbar: React.FC = () => {
   return (
-    <div className="fixed top-2 left-[275px] right-3 bg-white shadow-md rounded-xl px-6 py-3 flex items-center justify-between z-50 h-14">
+    <div className="h-16 w-full glassmorphism px-6 py-3 flex items-center justify-between z-50  ">
+
       {/* Left Section - Search Bar */}
       <div className="relative w-64">
         <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -34,6 +36,7 @@ const Navbar: React.FC = () => {
           Logout
         </button>
       </div>
+
     </div>
   );
 };
