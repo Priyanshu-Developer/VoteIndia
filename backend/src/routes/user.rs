@@ -2,6 +2,7 @@ use std::{env, fs, path::PathBuf};
 use actix_files::NamedFile;
 use actix_multipart::form::MultipartForm;
 use actix_web::{cookie::{time::Duration, Cookie, SameSite}, get, patch, post, web::{Data, Json, Query}, HttpRequest, HttpResponse, Responder};
+use futures::TryStreamExt;
 use mongodb::{bson::doc, Client, Collection};
 use serde_json::{json, Value};
 use uuid::Uuid;
@@ -25,7 +26,7 @@ pub async  fn login(client: Data<Client>, form: Json<LoginForm>) -> impl Respond
         Ok(Some(user)) => {
             // Verify the password
             if verify_password(&user.password,&form.password ) {
-                let auth = generate_token(form.id.clone(),user.is_admin).unwrap();
+                let auth = generate_token(form.id.clone()).unwrap();
                 let cookie= Cookie::build("auth_token", auth)
                                                 .max_age(Duration::minutes(30))
                                                 .http_only(true)
@@ -45,7 +46,6 @@ pub async  fn login(client: Data<Client>, form: Json<LoginForm>) -> impl Respond
 // client: Data<Client>, form: MultipartForm<RegisterUser>
 #[post("/register")]
 pub async fn register( client: Data<Client>, form: MultipartForm<RegisterUser>) -> impl Responder {
-    println!("hy {:?}",form.0);
     dotenv::dotenv().ok();
     let collection: Collection<User> = client.database(DB_NAME).collection(COLL_NAME);
 
@@ -90,7 +90,8 @@ pub async fn register( client: Data<Client>, form: MultipartForm<RegisterUser>) 
         image:path.to_str().unwrap().to_string(),
         face_descriptor: form.face_descriptor.0.clone(),
         email: form.email.0.clone(),
-        is_admin: form.isadmin.as_ref().map(|t| t.0).unwrap_or(false),
+        state: form.state.0.clone(),
+        is_voted: false
 
     };
     match collection.insert_one(user).await {
@@ -149,7 +150,7 @@ pub async fn get_voter(client: Data<Client>,query: Query<UserQuery>) -> impl Res
         Err(_) => HttpResponse::InternalServerError().json(message("unable to get voter data")),
     }
 }
-#[get("/get-user")]
+#[get("/get-user/")]
 pub async fn get_user(client: Data<Client>,query: Query<UserQuery>) -> impl Responder {
     let collection: Collection<User> = client.database(DB_NAME).collection(COLL_NAME);
 
@@ -159,8 +160,9 @@ pub async fn get_user(client: Data<Client>,query: Query<UserQuery>) -> impl Resp
                 "id": user.id,
                 "username": user.username,
                 "email":user.email,
-                "is_admin":user.is_admin,
+                "state": user.state,
                 "wallet_address": user.walletaddress, 
+                "is_voted" : user.is_voted
             });
             HttpResponse::Ok().json(response)
         }
@@ -203,14 +205,15 @@ pub async fn get_image(req: HttpRequest,client: Data<Client>, query: Query<UserQ
 }
 #[get("/adhar/")]
 pub async fn get_adhar(client: Data<Client>, query: Query<UserQuery>) -> impl Responder {
-    println!("{:?}",query);
+    println!("{:?}",query.0.id);
     let collection: Collection<Adhar> = client.database(DB_NAME).collection("adhar");
 
-    match collection.find_one(doc! { "id": query.id as i64 }).await {
+    match collection.find_one(doc! { "id": query.0.id as i64 }).await {
         Ok(Some(user)) => {
             let response = json!( {
                 "name":user.name,
-                "email":user.email
+                "email":user.email,
+                "state":user.state
             });
             HttpResponse::Ok().json(response)   
         }
@@ -232,7 +235,26 @@ pub async fn check_id(client: Data<Client>, query: Query<UserQuery>) -> impl Res
     }
 }
 
-#[post("/hy")]
-pub  async  fn hy()-> impl Responder{
-    HttpResponse::Ok().json(json!({"message":"hy"}))
+#[get("/get-voters")]
+pub async fn get_all(client: Data<Client>) -> impl Responder {
+    let collection: Collection<User> = client.database(DB_NAME).collection(COLL_NAME);
+    
+    match collection.find(doc! {}).await {
+        Ok(cursor) => {
+            let users: Vec<User> = cursor.try_collect().await.unwrap_or_else(|_| vec![]);
+            let response: Vec<_> = users.into_iter().map(|user| {
+                json!({
+                    "id": user.id,
+                    "username": user.username,
+                    "email": user.email,
+                    "state": user.state,
+                    "image":user.image,
+                    "wallet_address": user.walletaddress,
+                    "is_voted" : user.is_voted
+                })
+            }).collect();
+            HttpResponse::Ok().json(response)
+        }
+        Err(_) => HttpResponse::InternalServerError().json(json!({"message": "unable to fetch voters"})),
+    }
 }

@@ -26,7 +26,16 @@ export default function FaceRegistration() {
       console.error('❌ Error accessing webcam:', error);
     }
   };
-
+  const stopVideo = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      const tracks = stream.getTracks();
+  
+      tracks.forEach(track => track.stop());
+      videoRef.current.srcObject = null;
+    }
+  };
+  
   useEffect(() => {
     async function initModels() {
       await loadModel();
@@ -95,6 +104,7 @@ export default function FaceRegistration() {
 
   const handleclick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setColor("bg-gray-400");
     
     const storedUser = sessionStorage.getItem('user');
     if (!storedUser) {
@@ -109,6 +119,7 @@ export default function FaceRegistration() {
     formData.append('password', user.password);
     formData.append("walletaddress",user.address);
     formData.append('email', user.email);
+    formData.append('state',user.state)
     formData.append('face_descriptor', face);
 
     if (image) {
@@ -117,10 +128,8 @@ export default function FaceRegistration() {
       console.error('No captured image available');
       return;
     }
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
+  
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/register`, {
         method: 'POST',
         body:formData
 
@@ -132,6 +141,7 @@ export default function FaceRegistration() {
       else{
         router.push("/user/login")
       }
+      stopVideo()
   };
 
   return (

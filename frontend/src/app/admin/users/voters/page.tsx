@@ -7,46 +7,41 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 
 
-const dummyData = Array.from({ length: 30 }, (_, index) => ({
-  id: index + 1,
-  name: `User ${index + 1}`,
-  walletaddress: `0x${Math.random().toString(35).substring(2, 42)}`, // Random wallet address
-  image: `https://i.pravatar.cc/40?img=${(index % 70) + 1}`, // Random avatar from 1-70
-  email: `user${index + 1}@example.com`,
-  state: [
-    "California", "Texas", "New York", "Florida", "Illinois", "Nevada", "Oregon",
-    "Washington", "Arizona", "Colorado", "Georgia", "Ohio", "Michigan", "Virginia",
-    "Massachusetts", "North Carolina", "Pennsylvania", "Tennessee", "Indiana",
-    "Missouri", "Maryland", "Minnesota", "Wisconsin", "South Carolina", "Alabama",
-    "Kentucky", "Louisiana", "Oklahoma", "Iowa", "Arkansas"
-  ][index], // Assigns different states
-}));
-
-
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  { field: 'name', headerName: 'Name', width: 300 },
-  { field: 'walletaddress', headerName: 'Wallet Address', width: 400 },
-  { field: 'image', headerName: 'Image', width: 300 },
+  { field: 'id', headerName: 'ID', width: 160 },
+  { field: 'username', headerName: 'Name', width: 350 },
+  { field: 'wallet_address', headerName: 'Wallet Address', width: 500 },
+  { field: 'image', headerName: 'Image', width: 100 ,renderCell: (params) => (<img src={`${process.env.NEXT_PUBLIC_API_URL}/${params.value}`} alt="Avatar" style={{ width: 40, height: 40, borderRadius: "50%" }}/>), },
   { field: 'email', headerName: 'Email', width: 340 },
   { field: 'state', headerName: 'State', width: 160 },
-  { field: 'voted', headerName: 'Voted', width: 100 },
+  { field: 'is_voted', headerName: 'Voted', width: 100 },
   
 ];
 
 
-const columns2 = [
-  { key: "id", label: "ID" },
-  { key: "name", label: "Name" },
-  { key: "walletaddress", label: "Wallet Address" },
-  { key: "image", label: "Image" },
-  { key: "email", label: "Email" },
-  { key: "state", label: "State" },
-];
-
 const paginationModel = { page: 0, pageSize: 15 };
 
 const  User = () => {
+
+  const [userdata,setUserData] = React.useState([])
+
+  const  fetchdata = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/get-voters`)
+      if(!res.ok){
+        setUserData([])
+      }
+      else{
+        const data = await res.json()
+        setUserData(data)
+      }
+    } catch (error) {
+      
+    }
+  }
+
+  React.useEffect(() => {fetchdata()},[])
+  
   return (
     <AdminLayout>
        <div className="flex  p-4 gap-4">
@@ -57,7 +52,7 @@ const  User = () => {
           <Box sx={{py:3}} >
               <Paper sx={{ height: 780, width: '100%' }}>
                   <DataGrid
-                    rows={dummyData}
+                    rows={userdata}
                     columns={columns}
                     initialState={{ pagination: { paginationModel } }}
                     pageSizeOptions={[15, 20]}

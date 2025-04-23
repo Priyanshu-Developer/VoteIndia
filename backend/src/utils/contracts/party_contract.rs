@@ -1,30 +1,12 @@
-use std::{ fs::File, io::{Cursor, Error, Read}};
-use ipfs_api_backend_actix::{IpfsApi, IpfsClient};
+use std::{ fmt::Debug, io::Error, path::Path, time::{Duration, UNIX_EPOCH}};
+
+use chrono::{DateTime, NaiveDateTime, TimeZone, Utc};
+use serde::Serialize;
 use web3::{contract::{tokens::Detokenize, Contract, Options}, ethabi::Token, transports::Http, types::{U256, U64}, Web3};
 
-use super::helper::{load_contract, load_key};
+use super::helper::{load_contract, load_key, upload};
 
-pub async fn upload(path: &str) -> Result<String, Error> {
-       
-    let client = IpfsClient::default(); 
-    match File::open(path){
-        Ok(mut file) => {
-            let mut buffer = Vec::new();
-                file.read_to_end(&mut buffer)?;
-                let cursor = Cursor::new(buffer);
-                match client.add(cursor).await{
-                    Ok(response) => {
-                        Ok(response.hash)
-                    },
-                    Err(e) => {
-                        Err(std::io::Error::new(std::io::ErrorKind::Other, e.to_string()))
-                    }
-                }
-        },
-        Err(e) => return Err(e)
-        
-    }
-}
+
 
 pub fn load_configs() -> (Contract<Http>, Web3<Http>) {
     dotenv::dotenv().ok();
@@ -43,13 +25,13 @@ pub struct NationalParty {
     pub logo :String
 }
 #[allow(dead_code)]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone,Serialize)]
 pub struct NationalPartyInfo{
-    pub id: U256,
+    pub id: i128,
     pub name: String,
     pub symbol: String,
     pub logo: String,
-    pub registered_time: U256,
+    pub registered_time: String,
 
 }
 
@@ -60,12 +42,14 @@ impl Detokenize for NationalPartyInfo {
 
             if let Some(Token::Tuple(tuple_tokens)) = tokens.get(0) {
                 if let [Token::Uint(id), Token::String(name), Token::String(symbol), Token::String(logo), Token::Uint(registered_time)] = &tuple_tokens[..] {
+                    let dts = Utc.timestamp_opt(registered_time.as_u64() as i64, 0).single().expect("invalid format").format("%Y-%m-%d %H:%M:%S").to_string();
+                  
                     return Ok(NationalPartyInfo {
-                        id: *id,
+                        id: id.as_u128() as i128,
                         name: name.clone(),
                         symbol: symbol.clone(),
                         logo: logo.clone(),
-                        registered_time: *registered_time,
+                        registered_time: dts,
                     });
                 }
             }
@@ -86,14 +70,14 @@ pub struct StateParty {
     pub state: String
 }
 #[allow(dead_code)]
-#[derive(Debug,Clone)]
+#[derive(Debug,Clone,Serialize)]
 pub struct StatePartyInfo{
-    pub id: U256,
+    pub id: u128,
     pub name: String,
     pub symbol: String,
     pub logo: String,
     pub state: String,
-    pub registered_time: U256,
+    pub registered_time: String,
 }
 
 impl Detokenize for StatePartyInfo {
@@ -104,13 +88,14 @@ impl Detokenize for StatePartyInfo {
         if let Some(Token::Tuple(tuple_token)) = tokens.get(0) {
             if let [Token::Uint(id),Token::String(name),Token::String(symbol),Token::String(logo), Token::String(state),Token::Uint(registered_time),] = &tuple_token[..]
             {
+                let dts = Utc.timestamp_opt(registered_time.as_u64() as i64, 0).single().expect("invalid format").format("%Y-%m-%d %H:%M:%S").to_string();
                 return Ok(StatePartyInfo {
-                    id: *id,
+                    id: id.as_u128(),
                     name: name.clone(),
                     symbol: symbol.clone(),
                     logo: logo.clone(),
                     state: state.clone(),
-                    registered_time: *registered_time,
+                    registered_time: dts,
                 });
             }
         }
@@ -122,10 +107,12 @@ impl Detokenize for StatePartyInfo {
 
 #[allow(dead_code)]
 impl NationalParty {
-    pub async fn new(name: &str, symbol: &str, logopath: &str) -> Result<NationalParty, Error> {
+    pub async fn new(name: &str, symbol: &str, logopath: &Path) -> Result<NationalParty, Error> {
+        println!("path : {:?}",logopath);
+        match upload(&logopath).await{
 
-        match upload(logopath).await{
             Ok(logo) => {
+                println!("logo :{}",logo);
                 if name.len() == 0 || symbol.len() == 0 || name.len() > 20 || symbol.len() > 6 {
                     return Err(Error::new(std::io::ErrorKind::Other, "Name and Symbol cannot be empty"));
                 }
@@ -220,9 +207,9 @@ impl NationalParty {
 
 #[allow(dead_code)]
 impl StateParty {
-    pub async fn new(name: &str, symbol: &str, logopath: &str, state: &str) -> Result<StateParty, Error> {
+    pub async fn new(name: &str, symbol: &str, logopath: &Path, state: &str) -> Result<StateParty, Error> {
 
-        match upload(logopath).await{
+        match upload(&logopath).await{
             Ok(logo) => {
                 if name.len() == 0 || symbol.len() == 0 {
                     return Err(Error::new(std::io::ErrorKind::Other, "Name and Symbol cannot be empty"));

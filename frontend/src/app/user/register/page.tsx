@@ -59,21 +59,23 @@ export default function RegisterUser() {
   const [email,setEmail] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
   const [error, setError] = useState("");
+  const [state,setState] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const [isdisable,setIsDisable] = useState(true);
   const router = useRouter();
 
   const fetchUserDetails = async (userId: string) => {
     try {
-      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/check-id/?id=${userId}`);
+      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/check-id/?id=${userId}`);
       if (resp.ok){
         setError("User Already Exist")
       }
       else{
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/adhar/?id=${userId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/adhar/?id=${userId}`);
         if (!response.ok) throw new Error("User not found");
         const data = await response.json();
         console.log(data.name)
+        setState(data.state)
         setName(data.name);
         setEmail(data.email);
         setIsDisable(false);
@@ -110,7 +112,7 @@ export default function RegisterUser() {
 
   const generateWalletAddress = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/generate-wallet`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/generate-wallet`);
       if (!response.ok) {
         setError("Unable to generate wallet address");
       } else {
@@ -125,7 +127,7 @@ export default function RegisterUser() {
   };
 
   const onContinue = () => {
-    const data = { id:id, name:name, password:password, address:walletAddress,email:email };
+    const data = { id:id, name:name, password:password, address:walletAddress,email:email,state:state };
     sessionStorage.setItem("user", JSON.stringify(data));
     router.push("/user/face-registration");
   };

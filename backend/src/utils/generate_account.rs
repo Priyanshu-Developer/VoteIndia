@@ -8,7 +8,7 @@ pub async fn create_account() -> Result<String,io::Error>{
 
     dotenv::dotenv().ok(); // Load environment variables from .env
 
-    let url = env::var("GETH_URL").unwrap();
+    let url = env::var("RPC_URL").unwrap();
     let transport = Http::new(&url).unwrap();
     let web3 = Web3::new(transport);
 

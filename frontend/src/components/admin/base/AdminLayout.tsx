@@ -1,16 +1,12 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { createTheme } from '@mui/material/styles';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import DescriptionIcon from '@mui/icons-material/Description';
-import LayersIcon from '@mui/icons-material/Layers';
-import { AppProvider, type Navigation } from '@toolpad/core/AppProvider';
-import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AdminPanelSettingsIcon  from '@mui/icons-material/AdminPanelSettings';
+import PeopleAltIcon  from '@mui/icons-material/PeopleAlt';
 import HowToVoteIcon from '@mui/icons-material/HowToVote';
-
+import { DashboardLayout } from '@toolpad/core/DashboardLayout';
+import { Navigation } from '@toolpad/core/AppProvider';
+import { Ballot, Flag, PublicOutlined } from '@mui/icons-material';
 
 const NAVIGATION: Navigation = [
  
@@ -43,7 +39,7 @@ const NAVIGATION: Navigation = [
   },
   {
     kind: 'header',
-    title: 'Candidates',
+    title: 'Parties',
   },  
   {
     segment: 'admin/parties/national-party',
@@ -57,38 +53,34 @@ const NAVIGATION: Navigation = [
     icon: <PeopleAltIcon />,
   },
   {
-    segment: 'traffic',
-    title: 'Traffic',
-    icon: <DescriptionIcon />,
+    kind: 'divider',
   },
   {
-    segment: 'integrations',
-    title: 'Integrations',
-    icon: <LayersIcon />,
+    kind: 'header',
+    title: 'Elections',
+  }, 
+  {
+    segment: 'admin/election/national-election',
+    title: 'National Election',
+    icon:  <Ballot/>,
   },
+  {
+    segment: 'admin/election/state-election',
+    title: 'State Election',
+    icon:  <Flag/>,
+  }, 
+  
 ];
 
+export default function DashboardLayoutBasic({children }: {children : React.ReactNode}) {
 
-
-
-
-
-export default function DashboardLayoutBasic({children} : {children:React.ReactNode}) {
 
   return (
-    <AppProvider navigation={NAVIGATION}
-      branding={{
-        logo: <img src="/electionLogo.png" alt=" logo" />,
-        title: 'ADMIN',
-      }}
-    >
-      <DashboardLayout>
-        <div className="m-6 overflow-scroll scrollbar-hide">
-          {children}
-        </div>
-       
+   
+  
+      <DashboardLayout navigation={NAVIGATION}>
+       {children}
+      
       </DashboardLayout>
-    </AppProvider>
-    
   );
 }

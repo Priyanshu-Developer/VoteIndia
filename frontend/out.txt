@@ -1,0 +1,379 @@
+
+> frontend@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.1.6 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.29.81:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Compiled in 1348ms
+ ✓ Ready in 5.8s
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled /admin/election/state-election-form in 32.4s
+ GET /admin/election/state-election-form 200 in 35498ms
+ ✓ Compiled in 857ms
+ ✓ Compiled in 1045ms
+ ✓ Compiled in 1576ms
+ ✓ Compiled in 1631ms
+ GET /admin/election/state-election-form 200 in 2638ms
+ ✓ Compiled in 1250ms
+ ✓ Compiled in 2.1s
+ ✓ Compiled in 1263ms
+ ✓ Compiled in 1298ms
+ ✓ Compiled /admin/election/state-election-form in 170ms
+ GET /admin/election/state-election-form 200 in 1134ms
+ ✓ Compiled in 796ms
+ ✓ Compiled in 1145ms
+ ✓ Compiled in 669ms
+ ✓ Compiled /admin/election/state-election-form in 117ms
+ GET /admin/election/state-election-form 200 in 327ms
+ ✓ Compiled in 1100ms
+ ✓ Compiled in 1297ms
+ ✓ Compiled in 1225ms
+ ✓ Compiled in 2.4s
+ ✓ Compiled in 878ms
+ ✓ Compiled in 1311ms
+ ✓ Compiled /admin/election/state-election-form in 234ms
+ GET /admin/election/state-election-form 200 in 1013ms
+ ✓ Compiled in 1775ms
+ ✓ Compiled in 1144ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled in 2.6s
+ ✓ Compiled /admin/election/state-election-form in 971ms
+ GET /admin/election/state-election-form 200 in 1367ms
+ ✓ Compiled in 564ms
+ ✓ Compiled in 1805ms
+ ✓ Compiled in 1138ms
+ ✓ Compiled in 4.1s
+ ✓ Compiled /admin/election/state-election-form in 177ms
+ GET /admin/election/state-election-form 200 in 1125ms
+ ✓ Compiled in 1381ms
+ ✓ Compiled in 1829ms
+ ✓ Compiled in 1272ms
+ ✓ Compiled /admin/election/state-election-form in 156ms
+ GET /admin/election/state-election-form 200 in 3543ms
+ ✓ Compiled in 1241ms
+ ✓ Compiled in 759ms
+ ✓ Compiled /admin/election/state-election-form in 66ms
+ GET /admin/election/state-election-form 200 in 568ms
+ ✓ Compiled in 702ms
+ ✓ Compiled in 1044ms
+ GET /admin/election/state-election-form 200 in 1518ms
+ ✓ Compiled in 2.9s
+ ✓ Compiled in 638ms
+ ✓ Compiled in 800ms
+ ✓ Compiled in 1209ms
+ ✓ Compiled in 611ms
+ ✓ Compiled /admin/election/state-election-form in 85ms
+ GET /admin/election/state-election-form 200 in 1303ms
+ ✓ Compiled in 2.1s
+ GET /admin/election/state-election-form 200 in 1661ms
+ ✓ Compiled in 1831ms
+ ✓ Compiled in 1160ms
+ ✓ Compiled in 1512ms
+ ✓ Compiled in 791ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled in 3s
+ ✓ Compiled /admin/election/state-election-form in 816ms
+ GET /admin/election/state-election-form 200 in 1661ms
+ GET /admin/election/state-election-form 200 in 1393ms
+ ✓ Compiled in 7.7s
+ GET /admin/election/state-election-form 200 in 3585ms
+ GET /admin/election/state-election-form 200 in 1866ms
+ ✓ Compiled in 634ms
+ ✓ Compiled in 863ms
+ ✓ Compiled in 1333ms
+ ✓ Compiled /admin/election/state-election-form in 81ms
+ GET /admin/election/state-election-form 200 in 496ms
+ ✓ Compiled in 740ms
+ ✓ Compiled in 897ms
+ ✓ Compiled in 1229ms
+ ✓ Compiled /admin/election/state-election-form in 242ms
+ GET /admin/election/state-election-form 200 in 1310ms
+ ✓ Compiled in 721ms
+ ✓ Compiled in 1069ms
+ ✓ Compiled in 1214ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled /admin/election/state-election-form in 666ms
+ GET /admin/election/state-election-form 200 in 1745ms
+ ✓ Compiled in 692ms
+ ✓ Compiled in 763ms
+ ✓ Compiled /admin/election/state-election-form in 117ms
+ GET /admin/election/state-election-form 200 in 415ms
+ ✓ Compiled in 968ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled in 1560ms
+ ✓ Compiled /admin/election/state-election-form in 1238ms
+ GET /admin/election/state-election-form 200 in 1852ms
+ GET /admin/election/state-election-form 200 in 693ms
+ ✓ Compiled in 1724ms
+ ✓ Compiled in 598ms
+ ✓ Compiled in 1692ms
+ ✓ Compiled in 2.5s
+ ✓ Compiled in 1475ms
+ ✓ Compiled in 944ms
+ ✓ Compiled in 1344ms
+ GET /admin/election/state-election-form 200 in 2256ms
+ ✓ Compiled in 2.8s
+ ✓ Compiled in 2.4s
+ ✓ Compiled /admin/election/state-election-form in 143ms
+ GET /admin/election/state-election-form 200 in 551ms
+ ✓ Compiled in 1093ms
+ ✓ Compiled in 1365ms
+ ✓ Compiled in 872ms
+ ✓ Compiled /admin/election/state-election-form in 116ms
+ GET /admin/election/state-election-form 200 in 428ms
+ ✓ Compiled in 1737ms
+ GET /admin/election/state-election-form 200 in 2469ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled in 4.2s
+ ✓ Compiled /admin/election/state-election-form in 1483ms
+ GET /admin/election/state-election-form 200 in 2221ms
+ GET /admin/election/state-election-form 200 in 1303ms
+ ✓ Compiled in 2.8s
+ ✓ Compiled in 1468ms
+ ✓ Compiled in 1456ms
+ ✓ Compiled in 1429ms
+ GET /admin/election/state-election-form 200 in 1445ms
+ ✓ Compiled in 2.7s
+ ✓ Compiled in 2s
+ ✓ Compiled /admin/election/state-election-form in 253ms
+ GET /admin/election/state-election-form 200 in 1884ms
+ ✓ Compiled in 2.5s
+ GET /admin/election/state-election-form 200 in 1250ms
+ ✓ Compiled in 1844ms
+ ✓ Compiled in 4.1s
+ ✓ Compiled in 1290ms
+ GET /admin/election/state-election-form 500 in 6705ms
+ ✓ Compiled in 2.2s
+ GET /admin/election/state-election-form 200 in 2779ms
+ ✓ Compiled in 3.2s
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled in 4s
+ ✓ Compiled /admin/election/state-election-form in 1172ms
+ GET /admin/election/state-election-form 200 in 1729ms
+ GET /admin/election/state-election-form 200 in 726ms
+ ✓ Compiled in 1841ms
+ ✓ Compiled in 1087ms
+ GET /admin/election/state-election-form 500 in 3534ms
+ ✓ Compiled in 1009ms
+ GET /admin/election/state-election-form 500 in 3093ms
+ ✓ Compiled in 5.9s
+ ✓ Compiled /admin/election/state-election-form in 160ms
+ GET /admin/election/state-election-form 200 in 2001ms
+ ✓ Compiled in 1268ms
+ ✓ Compiled in 1056ms
+ ✓ Compiled in 946ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled in 1178ms
+ ✓ Compiled /admin/election/state-election-form in 793ms
+ GET /admin/election/state-election-form 200 in 2112ms
+ GET /admin/election/state-election-form 200 in 481ms
+ ✓ Compiled in 1414ms
+ ✓ Compiled in 1715ms
+ ✓ Compiled in 1120ms
+ ✓ Compiled in 3.5s
+ ✓ Compiled in 1720ms
+ ✓ Compiled in 1111ms
+ ✓ Compiled in 985ms
+ ✓ Compiled in 904ms
+ ✓ Compiled in 821ms
+ ✓ Compiled /admin/election/state-election-form in 110ms
+ GET /admin/election/state-election-form 200 in 1159ms
+ ✓ Compiled in 1488ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled /admin/dashboard in 28.9s
+ GET /admin/dashboard 200 in 33179ms
+ ✓ Compiled in 1769ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled in 1048ms
+ ✓ Compiled /admin/election/state-election-form in 924ms
+ GET /admin/dashboard 200 in 2442ms
+ GET /admin/election/state-election-form 200 in 2469ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 1894ms
+ ✓ Compiled /admin/dashboard in 1287ms
+ GET /admin/election/state-election-form 200 in 2810ms
+ GET /admin/dashboard 200 in 2940ms
+ GET /admin/election/state-election-form 200 in 709ms
+ GET /admin/dashboard 200 in 747ms
+ GET /admin/election/state-election-form 200 in 457ms
+ GET /admin/dashboard 200 in 443ms
+ GET /admin/election/state-election-form 200 in 355ms
+ GET /admin/dashboard 200 in 355ms
+ GET /admin/election/state-election-form 200 in 850ms
+ GET /admin/dashboard 200 in 926ms
+ GET /admin/election/state-election-form 200 in 2653ms
+ GET /admin/dashboard 200 in 2864ms
+ GET /admin/dashboard 200 in 415ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 1062ms
+ ✓ Compiled /admin/dashboard in 794ms
+ GET /admin/dashboard 200 in 1340ms
+ GET /admin/election/state-election-form 200 in 1521ms
+ GET /admin/dashboard 200 in 616ms
+ GET /admin/election/state-election-form 200 in 568ms
+ GET /admin/dashboard 200 in 583ms
+ GET /admin/election/state-election-form 200 in 609ms
+ GET /admin/dashboard 200 in 549ms
+ GET /admin/election/state-election-form 200 in 503ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 2.2s
+ ✓ Compiled /admin/dashboard in 2.2s
+ ○ Compiling /_error ...
+ ✓ Compiled in 9.3s
+ ✓ Compiled /_error in 11.7s
+ GET /admin/election/state-election-form 500 in 15373ms
+ GET /admin/dashboard 500 in 15394ms
+ ✓ Compiled /admin/election/state-election-form in 180ms
+ GET /admin/dashboard 200 in 753ms
+ GET /admin/election/state-election-form 200 in 767ms
+ GET /admin/election/state-election-form 200 in 897ms
+ GET /admin/dashboard 200 in 916ms
+ GET /admin/dashboard 200 in 2982ms
+ GET /admin/election/state-election-form 200 in 3131ms
+ ✓ Compiled in 2.1s
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 1259ms
+ ✓ Compiled /admin/dashboard in 1234ms
+ GET /admin/election/state-election-form 200 in 2934ms
+ GET /admin/dashboard 200 in 2991ms
+ GET /admin/dashboard 200 in 847ms
+ GET /admin/election/state-election-form 200 in 831ms
+ GET /admin/dashboard 200 in 1107ms
+ GET /admin/election/state-election-form 200 in 1115ms
+ GET /admin/dashboard 200 in 974ms
+ GET /admin/election/state-election-form 200 in 986ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 2.8s
+ ✓ Compiled /admin/dashboard in 2.1s
+ GET /admin/dashboard 200 in 2906ms
+ GET /admin/election/state-election-form 200 in 3828ms
+ GET /admin/dashboard 200 in 1150ms
+ GET /admin/election/state-election-form 200 in 922ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled /admin/dashboard in 1697ms
+ ✓ Compiled in 3.7s
+ GET /admin/dashboard 200 in 3633ms
+ ○ Compiling /admin/dashboard ...
+ GET /admin/election/state-election-form 200 in 4464ms
+ ✓ Compiled /admin/dashboard in 696ms
+ GET /admin/dashboard 200 in 1124ms
+ GET /admin/election/state-election-form 200 in 565ms
+ ✓ Compiled in 752ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled /admin/dashboard in 624ms
+ GET /admin/dashboard 200 in 1352ms
+ GET /admin/election/state-election-form 200 in 1390ms
+ GET /admin/dashboard 200 in 700ms
+ GET /admin/election/state-election-form 200 in 694ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 2s
+ ✓ Compiled /admin/dashboard in 1837ms
+ GET /admin/dashboard 200 in 2235ms
+ GET /admin/election/state-election-form 200 in 2732ms
+ GET /admin/dashboard 200 in 1527ms
+ GET /admin/election/state-election-form 200 in 1082ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 1963ms
+ ✓ Compiled /admin/dashboard in 1760ms
+ GET /admin/dashboard 200 in 2712ms
+ GET /admin/election/state-election-form 200 in 2809ms
+ GET /admin/dashboard 200 in 805ms
+ GET /admin/election/state-election-form 200 in 725ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 1993ms
+ ✓ Compiled /admin/dashboard in 1994ms
+ GET /admin/dashboard 200 in 3412ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled /admin/dashboard in 4.2s
+ GET /admin/election/state-election-form 200 in 10828ms
+ GET /admin/dashboard 200 in 7217ms
+ ✓ Compiled /admin/election/state-election-form in 294ms
+ GET /admin/election/state-election-form 200 in 691ms
+ GET /admin/dashboard 200 in 688ms
+ GET /admin/election/state-election-form 200 in 600ms
+ GET /admin/dashboard 200 in 750ms
+ GET /admin/election/state-election-form 200 in 1066ms
+ GET /admin/dashboard 200 in 1250ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 1746ms
+ ✓ Compiled /admin/dashboard in 1548ms
+ GET /admin/dashboard 200 in 3422ms
+ GET /admin/election/state-election-form 200 in 3888ms
+ ✓ Compiled in 2.4s
+ GET /admin/election/state-election-form 500 in 1831ms
+ GET /admin/dashboard 500 in 2260ms
+ GET /admin/election/state-election-form 500 in 1250ms
+ GET /admin/dashboard 500 in 2483ms
+ GET /admin/election/state-election-form 500 in 1634ms
+ ✓ Compiled in 1127ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled /admin/election/state-election-form in 1169ms
+ GET /admin/dashboard 200 in 3774ms
+ GET /admin/election/state-election-form 200 in 5026ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled in 9.6s
+ ✓ Compiled /admin/election/state-election-form in 5s
+ GET /admin/election/state-election-form 200 in 1837ms
+ ○ Compiling /admin/election/state-election-form ...
+ ✓ Compiled in 3.2s
+ ✓ Compiled /admin/election/state-election-form in 5.3s
+ GET /admin/election/state-election-form 200 in 6882ms
+ ✓ Compiled in 8.8s
+ ✓ Compiled in 902ms
+ ✓ Compiled /admin/dashboard in 326ms
+ GET /admin/dashboard 200 in 594ms
+ GET /admin/election/state-election-form 200 in 1030ms
+ GET /admin/dashboard 200 in 886ms
+ GET /admin/election/state-election-form 200 in 516ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 1215ms
+ ✓ Compiled /admin/dashboard in 936ms
+ GET /admin/dashboard 200 in 1588ms
+ GET /admin/election/state-election-form 200 in 1714ms
+ GET /admin/dashboard 200 in 1417ms
+ GET /admin/election/state-election-form 200 in 1586ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled /admin/dashboard in 2.2s
+ ✓ Compiled in 4.1s
+ GET /admin/dashboard 200 in 3957ms
+ ○ Compiling /admin/election/state-election-form ...
+ GET /admin/election/state-election-form 200 in 4473ms
+ ✓ Compiled /admin/election/state-election-form in 830ms
+ GET /admin/dashboard 200 in 1083ms
+ GET /admin/election/state-election-form 200 in 761ms
+ GET /admin/dashboard 200 in 812ms
+ GET /admin/election/state-election-form 200 in 664ms
+ GET /admin/dashboard 200 in 611ms
+ GET /admin/election/state-election-form 200 in 488ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled /admin/dashboard in 1750ms
+ ✓ Compiled in 3s
+ GET /admin/dashboard 200 in 3000ms
+ ○ Compiling /admin/election/state-election-form ...
+ GET /admin/election/state-election-form 200 in 3919ms
+ ✓ Compiled /admin/election/state-election-form in 996ms
+ GET /admin/dashboard 200 in 1949ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 1643ms
+ ✓ Compiled /admin/dashboard in 1317ms
+ GET /admin/election/state-election-form 200 in 3470ms
+ GET /admin/dashboard 200 in 3079ms
+ ○ Compiling /admin/dashboard ...
+ ✓ Compiled in 1700ms
+ ✓ Compiled /admin/dashboard in 2.2s
+ GET /admin/dashboard 200 in 2647ms
+ GET /admin/election/state-election-form 200 in 3519ms
+ GET /admin/dashboard 200 in 1017ms
+ GET /admin/election/state-election-form 200 in 1108ms
+ GET /admin/dashboard 200 in 717ms
+ GET /admin/election/state-election-form 200 in 726ms
+ GET /admin/dashboard 200 in 544ms
+ GET /admin/election/state-election-form 200 in 566ms
+ GET /admin/dashboard 200 in 561ms
+ GET /admin/election/state-election-form 200 in 535ms
+ GET /admin/election/state-election-form 200 in 457ms
+[?25h

@@ -1,10 +1,13 @@
-const { ethers } = require("ethers");
+import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-const wallet = ethers.Wallet.createRandom();
+const NationalElectionModule = buildModule("NationalElectionModule", (m) => {
+    const tokenAddress = "0x985F305e6ae6a98F73cD4bba57eF635ECca79053";
+    const partiesAddress = "0x9A2C8Db4106bab8D12C3F3feCb8E5714eBaEEF58";
 
-console.log("Private Key:", wallet.privateKey);
-console.log("Address:", wallet.address);
+    // Deploy contract with constructor arguments
+    const nationalElection = m.contract("NationalElection", [tokenAddress, partiesAddress]);
 
+    return { nationalElection };
+});
 
-// Private Key: 0x24563146e4273837b9622aef24485ae0f417f65dea3459980a8edce93b4aa46b
-// Address: 0xf7F5c357C6Cd0bF40260Fdddee33A96d88820aF9
+export default NationalElectionModule;

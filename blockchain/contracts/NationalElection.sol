@@ -16,7 +16,8 @@ interface IParties {
 
 contract NationalElection {
     address public owner;
-    uint public electionYear;
+    uint256 public electionYear;
+    uint256 public electedCandiadteId;
     ISwarajToken public swarajToken;
     IParties public partiesContract;
 
@@ -26,13 +27,13 @@ contract NationalElection {
     "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
     "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
     "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
-    "Uttar Pradesh", "Uttarakhand", "West Bengal"
-];
+    "Uttar Pradesh", "Uttarakhand", "West Bengal"];
 
     struct States{
         string statename;
         uint256 votecount;
     }
+
     struct Candidate {
         uint256 partyId;
         string name;
@@ -61,6 +62,15 @@ contract NationalElection {
         electionYear = block.timestamp;
         owner = msg.sender;
     }
+
+    function getYear() public view returns (uint year){
+        return electionYear;
+    }
+    function electedCandiadte(uint256 electedid) public onlyOwner {
+        electedCandiadteId = electedid;
+    }
+
+    function getElectedCandidate () public view return ()
 
     function registerCandidate(uint partyid, string memory name, string memory image) public onlyOwner {
         require(bytes(name).length > 0, "Candidate name is required");

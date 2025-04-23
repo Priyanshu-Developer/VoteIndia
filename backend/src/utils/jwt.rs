@@ -6,12 +6,11 @@ use std::env;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Claims {
     id: i64,
-    pub admin:bool,
     exp: usize,
 }
 
 
-pub fn generate_token(id: i64,is_admin:bool) -> Result<String, jsonwebtoken::errors::Error> {
+pub fn generate_token(id: i64) -> Result<String, jsonwebtoken::errors::Error> {
     let expiration = Utc::now()
         .checked_add_signed(Duration::minutes(60))
         .expect("valid timestamp")
@@ -19,7 +18,6 @@ pub fn generate_token(id: i64,is_admin:bool) -> Result<String, jsonwebtoken::err
 
     let claims = Claims {
         id: id,
-        admin:is_admin,
         exp: expiration,
     };
 

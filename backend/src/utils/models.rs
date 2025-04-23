@@ -11,6 +11,7 @@ pub struct User {
     pub face_descriptor: String,
     pub email: String,
     pub state:String,
+    pub is_voted:bool,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Admin{

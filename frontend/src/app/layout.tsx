@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { NextAppProvider } from "@toolpad/core/nextjs";
 
 
 const geistSans = Geist({
@@ -27,7 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen relative`}>
+      <NextAppProvider >
         {children}
+      </NextAppProvider>
     </body>
 
     </html>

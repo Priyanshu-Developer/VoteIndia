@@ -47,7 +47,7 @@ export default function FaceAuth() {
   useEffect(() =>{
     async function fetchdescriptor() {
       let id = sessionStorage.getItem("id");
-      let response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/face-descriptor/?id=${id}`);
+      let response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/face-descriptor/?id=${id}`);
       if (response.ok){
         const res = await response.json();
         
